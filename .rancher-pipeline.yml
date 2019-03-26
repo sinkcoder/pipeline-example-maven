@@ -3,14 +3,15 @@ stages:
   steps:
   - runScriptConfig:
       image: maven:3-jdk-7
-      shellScript: |-
-        mvn clean install
+      shellScript: mvn clean install
 - name: Publish
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: example-greenhouse:${CICD_EXECUTION_SEQUENCE}
+      pushRemote: true
+      registry: registry.cn-hangzhou.aliyuncs.com/microshen
 - name: Deploy
   steps:
   - applyYamlConfig:
